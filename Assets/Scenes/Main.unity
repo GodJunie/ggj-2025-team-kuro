@@ -543,8 +543,8 @@ MonoBehaviour:
   maxCount: 60
   minObjCount: 10
   maxObjCount: 20
-  minEdibleObjCount: 5
-  maxEdibleObjCount: 7
+  minEdibleObjCount: 7
+  maxEdibleObjCount: 10
 --- !u!4 &1533639307
 Transform:
   m_ObjectHideFlags: 0

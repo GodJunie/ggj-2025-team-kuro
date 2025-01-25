@@ -82,17 +82,10 @@ namespace GGJ {
 
         private Vector3 getRandomCord() {
             var camRect = GetCamRect();
-
-            float randomRadius = UnityEngine.Random.Range(camRect.xMax, camRect.xMax + maxDistance);
-
-            float randomAngle = UnityEngine.Random.Range(0f, 360f);
-            // circular
-            float x = randomRadius * Mathf.Cos(randomAngle * Mathf.Deg2Rad);
-            float y = randomRadius * Mathf.Sin(randomAngle * Mathf.Deg2Rad);
-
-            Vector3 randomPosition = new Vector3(x, y, 0f);
-
-            return randomPosition;
+            var center = player.transform.position;
+            var rad = camera.orthographicSize + maxDistance;
+            var right = Vector3.right * rad;
+            return center + Quaternion.AngleAxis(UnityEngine.Random.Range(0f, 360f), Vector3.forward) * right;
         }
 
         public void GameStart() {
