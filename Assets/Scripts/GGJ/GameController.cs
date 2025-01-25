@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,6 +24,8 @@ namespace GGJ {
         private int objCountMin;
         [SerializeField]
         private int objCountMax;
+
+        private float size;
 
         protected override void Awake() {
             base.Awake();
@@ -79,7 +82,8 @@ namespace GGJ {
             IsPlaying = true;
             this.OnGameStart?.Invoke();
             obstaclePool.Clear();
-            camera.orthographicSize = 5f;
+            size = 5f;
+            camera.orthographicSize = size;
         }
 
         public void GameOver() {
@@ -87,7 +91,9 @@ namespace GGJ {
         }
 
         public void Eat() {
-            camera.orthographicSize += 0.5f;
+            camera.DOKill();
+            size += 0.5f;
+            camera.DOOrthoSize(size, 0.05f);
         }
     }
 }
