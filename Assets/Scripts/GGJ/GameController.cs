@@ -67,7 +67,7 @@ namespace GGJ {
                 if(edibleObjCount < Mathf.Lerp(minEdibleObjCount, maxEdibleObjCount, (float)Order / maxOrder)) {
                     obj = Instantiate(obstacles.Where(e => e.Order <= Order).Random());
                 } else {
-                    obj = Instantiate(obstacles.Where(e => e.Order > Order).Random());
+                    obj = Instantiate(obstacles.Where(e => e.Order > Order && e.Order <= Order + 1).Random());
                 }
             } else {
                 obj = Instantiate(obstacles.Where(e => e.Order == maxOrder).Random());
@@ -76,7 +76,7 @@ namespace GGJ {
             Vector3 pos = getRandomCord();
 
             var dir = player.transform.position - pos;
-            obj.Init(pos, dir.normalized * 2f);
+            obj.Init(pos, dir.normalized * UnityEngine.Random.Range(1f, 4f));
             obstaclePool.Add(obj);
         }
 
@@ -127,6 +127,7 @@ namespace GGJ {
             foreach(var obj in obstaclePool) {
                 obj.CheckOrder();
             }
+
         }
 
         public void DestroyObstacle(ObstacleController obstacle) {

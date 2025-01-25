@@ -537,6 +537,7 @@ MonoBehaviour:
   - {fileID: 104261664441971354, guid: 98ff4475ed19a4752ad25bf567973387, type: 3}
   - {fileID: 7631621763622687131, guid: fa7233588088a449799d553f4813ea28, type: 3}
   - {fileID: 3585557392065392118, guid: 289b2d5e63f5f45e0a1b4b5eb0d855c9, type: 3}
+  - {fileID: 5651573871268923856, guid: 919445d739838c74fb24794715dd12ad, type: 3}
   camera: {fileID: 1342221721}
   maxDistance: 2
   maxOrder: 4
@@ -726,7 +727,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.264, y: -0.425, z: 0}
-  m_LocalScale: {x: 4, y: 4, z: 4}
+  m_LocalScale: {x: 16, y: 16, z: 16}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1643851046}
