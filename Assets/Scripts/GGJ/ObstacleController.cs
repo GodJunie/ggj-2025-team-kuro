@@ -1,5 +1,6 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
+using System.Linq;
 
 namespace GGJ {
     [RequireComponent(typeof(Rigidbody))]
@@ -8,6 +9,10 @@ namespace GGJ {
         private float velocity;
         [SerializeField]
         private int order;
+        [SerializeField]
+        private Material redMat;
+        [SerializeField]
+        private Material blueMat;
 
         public int Order => order;
 
@@ -25,6 +30,7 @@ namespace GGJ {
             this.transform.position = position;
             this.rigid.angularVelocity = GetRandomVector3() * 2f;
             this.rigid.linearVelocity = velocity;
+            CheckOrder();
         }
 
         public static Vector3 GetRandomVector3() {
@@ -44,6 +50,24 @@ namespace GGJ {
         private void OnTriggerExit(Collider other) {
             if(other.tag == "MainCamera") {
                 GameController.Instance.DestroyObstacle(this);
+            }
+        }
+
+        public void CheckOrder() {
+            if(GameController.Instance.Order < this.order) {
+                // red
+                foreach(var renderer in this.GetComponentsInChildren<MeshRenderer>()) {
+                    var newMats = renderer.materials.Where(e => e != blueMat && e != redMat).ToList();
+                    newMats.Add(redMat);
+                    renderer.materials = newMats.ToArray();
+                }
+            } else {
+                // blue
+                foreach(var renderer in this.GetComponentsInChildren<MeshRenderer>()) {
+                    var newMats = renderer.materials.Where(e => e != blueMat && e != redMat).ToList();
+                    newMats.Add(blueMat);
+                    renderer.materials = newMats.ToArray();
+                }
             }
         }
     }

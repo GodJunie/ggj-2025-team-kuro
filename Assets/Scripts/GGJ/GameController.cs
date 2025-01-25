@@ -123,6 +123,10 @@ namespace GGJ {
 
             player.transform.DOKill();
             player.transform.DOScale(size, .5f);
+
+            foreach(var obj in obstaclePool) {
+                obj.CheckOrder();
+            }
         }
 
         public void DestroyObstacle(ObstacleController obstacle) {
