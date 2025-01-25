@@ -77,6 +77,7 @@ namespace GGJ {
         private void Eat() {
             this.size += 0.1f;
             this.transform.localScale = Vector3.one * size;
+            GameController.Instance.Eat();
         }
 
         private void OnTriggerEnter(Collider other) {

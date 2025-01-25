@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9170091908649981923}
   - component: {fileID: 1640796538340501846}
-  - component: {fileID: 5359743043418115142}
+  - component: {fileID: 8643482568891066813}
   - component: {fileID: 2488646825902673220}
   m_Layer: 0
   m_Name: SlotMachine
@@ -62,8 +62,8 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!135 &5359743043418115142
-SphereCollider:
+--- !u!65 &8643482568891066813
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -77,12 +77,12 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
-  m_Radius: 0.61
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.58470064, y: 1, z: 0.7290443}
+  m_Center: {x: 0.003965199, y: -7.49012e-11, z: 0.0019419789}
 --- !u!114 &2488646825902673220
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocity: 1
+  defaultSize: 0.6
 --- !u!1001 &6943439574720811838
 PrefabInstance:
   m_ObjectHideFlags: 0

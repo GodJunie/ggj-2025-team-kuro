@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4308611200953963477}
   - component: {fileID: 6730062599462489058}
-  - component: {fileID: 4370875884856486862}
+  - component: {fileID: 4448779036273219896}
   - component: {fileID: 5919469526399550786}
   m_Layer: 0
   m_Name: Coin
@@ -62,7 +62,7 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!135 &4370875884856486862
+--- !u!135 &4448779036273219896
 SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,6 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocity: 1
+  defaultSize: 0.26
 --- !u!1 &5113589352757765497
 GameObject:
   m_ObjectHideFlags: 0
@@ -206,11 +207,11 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7549285331590754403}
   serializedVersion: 2
-  m_LocalRotation: {x: -0.37289432, y: 0.10630235, z: -0.10474179, w: 0.91579413}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 10, y: 10, z: 10}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 2019201885053713251}
   m_Father: {fileID: 4308611200953963477}
-  m_LocalEulerAnglesHint: {x: -138.645, y: -158.688, z: 158.827}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

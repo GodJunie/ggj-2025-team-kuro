@@ -3,32 +3,32 @@ using UnityEngine;
 
 namespace GGJ {
     [RequireComponent(typeof(Rigidbody))]
-    [RequireComponent(typeof(SphereCollider))]    
     public class ObstacleController : MonoBehaviour {
         [SerializeField]
         private float velocity;
+        [SerializeField]
+        private float defaultSize;
 
         public float Size {
             get {
-                return coll.radius * transform.localScale.x;
+                return defaultSize * transform.localScale.x;
             }
         }
 
         private Rigidbody rigid;
-        private SphereCollider coll;
         
         private void Awake() {
             this.rigid = GetComponent<Rigidbody>(); 
-            this.coll = GetComponent<SphereCollider>();
         }
 
         private void Start() {
-            Init(velocity);
+
         }
 
-        public void Init(float velocity) {
+        public void Init(Vector3 position, Vector2 velocity) {
+            this.transform.position = position;
             this.rigid.angularVelocity = GetRandomVector3() * 2f;
-            this.rigid.linearVelocity = GetRandomVector2() * velocity;
+            this.rigid.linearVelocity = velocity;
         }
 
         public static Vector3 GetRandomVector3() {
