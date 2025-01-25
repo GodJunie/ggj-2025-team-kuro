@@ -7,7 +7,7 @@ namespace GGJ {
     public class PlayerController : MonoBehaviour {
         [SerializeField] private float speed = 5f;
         [SerializeField] private float increaseSpeed = 1.5f;
-        [SerializeField] private float maxSpeed = 5f;
+        //[SerializeField] private float maxSpeed = 5f;
         [SerializeField] private float acceleration = 2f;
         [SerializeField] private float deceleration = 3f; // 감속도
         [SerializeField] private float rotationSpeed = 5f;
@@ -24,7 +24,6 @@ namespace GGJ {
         private bool isMoving = false;
 
         private float size;
-        private int currentOrder = 0;
 
         public bool IsDead { get; private set; }
 
@@ -62,7 +61,7 @@ namespace GGJ {
 
         private void MoveToTarget() {
             Vector3 direction = (targetPosition - transform.position).normalized;
-            currentVelocity = Vector3.MoveTowards(currentVelocity, direction * maxSpeed, acceleration * Time.deltaTime);
+            currentVelocity = Vector3.MoveTowards(currentVelocity, direction * speed, acceleration * Time.deltaTime);
             transform.position += currentVelocity * Time.deltaTime;
 
             RotateToTarget(transform.position);
@@ -85,13 +84,9 @@ namespace GGJ {
             transform.rotation = Quaternion.AngleAxis(smoothedAngle, Vector3.forward);
         }
 
-        public void SetSpeed(int order)
+        private void SetSpeed()
         {
-            if (order > currentOrder)
-            {
-                speed *= increaseSpeed;
-                currentOrder++;
-            } 
+            speed *= gameObject.transform.localScale.x;
         }
 
         private void GameStart() {
@@ -104,6 +99,7 @@ namespace GGJ {
         private void Eat() {
             GameController.Instance.Eat();
             anim.SetTrigger("Eat");
+            SetSpeed();
         }
 
         private void OnTriggerEnter(Collider other) {
