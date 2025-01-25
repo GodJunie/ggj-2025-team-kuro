@@ -13,7 +13,7 @@ namespace GGJ {
         [SerializeField]
         private new Camera camera;
         [SerializeField]
-        private float sizeMax;
+        private int sizeMax;
 
         private List<ObstacleController> obstaclePool;
 
@@ -21,13 +21,7 @@ namespace GGJ {
         public Action OnGameStart { get; set; }
         public Action OnGameEnd { get; set; }
         public float Timer { get; private set; }
-
-        [SerializeField]
-        private int objCountMin;
-        [SerializeField]
-        private int objCountMax;
-
-        private float size;
+        public int Count { get; private set; }
 
         protected override void Awake() {
             base.Awake();
@@ -41,9 +35,7 @@ namespace GGJ {
         private void Update() {
             Timer += Time.deltaTime;
 
-            float objCount = Mathf.Lerp(objCountMin, objCountMax, Timer / 100f);
-
-            while(obstaclePool.Count < objCount) {
+            while(obstaclePool.Count < 10) {
                 GenerateObject();
             }
         }
@@ -53,27 +45,29 @@ namespace GGJ {
         }
 
         private void GenerateObject() {
-            var obj = Instantiate(obstacles.Where(e => e.Size < player.Size).Random());
+            var obj = Instantiate(obstacles.Random());
             Vector3 pos;
             var camRect = GetCamRect();
 
-            switch(obstaclePool.Count % 4) {
-            case 0:
-                pos = new Vector3(camRect.xMin, UnityEngine.Random.Range(camRect.yMin, camRect.yMax), 0f);
-                break;
-            case 1:
-                pos = new Vector3(camRect.xMin, UnityEngine.Random.Range(camRect.yMin, camRect.yMax), 0f);
-                break;
-            case 2:
-                pos = new Vector3(camRect.xMin, UnityEngine.Random.Range(camRect.yMin, camRect.yMax), 0f);
-                break;
-            case 3:
-                pos = new Vector3(camRect.xMin, UnityEngine.Random.Range(camRect.yMin, camRect.yMax), 0f);
-                break;
-            default:
-                pos = Vector3.zero;
-                break;
-            }
+
+            pos = new Vector3(camRect.xMin - 3f, UnityEngine.Random.Range(camRect.yMax, camRect.yMin), 0f);
+
+            //switch(obstaclePool.Count % 4) {
+            //case 0:
+            //    break;
+            //case 1:
+            //    pos = new Vector3(camRect.xMin, UnityEngine.Random.Range(camRect.yMin, camRect.yMax), 0f);
+            //    break;
+            //case 2:
+            //    pos = new Vector3(camRect.xMin, UnityEngine.Random.Range(camRect.yMin, camRect.yMax), 0f);
+            //    break;
+            //case 3:
+            //    pos = new Vector3(camRect.xMin, UnityEngine.Random.Range(camRect.yMin, camRect.yMax), 0f);
+            //    break;
+            //default:
+            //    pos = Vector3.zero;
+            //    break;
+            //}
 
             var dir = player.transform.position - pos;
             obj.Init(pos, dir.normalized * 2f);
@@ -84,8 +78,9 @@ namespace GGJ {
             IsPlaying = true;
             this.OnGameStart?.Invoke();
             obstaclePool.Clear();
-            size = 5f;
-            camera.orthographicSize = size;
+            Count = 0;
+            camera.orthographicSize = 10f;
+            camera.transform.localScale = Vector3.one;
         }
 
         public void GameOver() {
@@ -93,9 +88,13 @@ namespace GGJ {
         }
 
         public void Eat() {
+            Count++;
+            if(Count > sizeMax) Count = sizeMax;
+            
             camera.DOKill();
-            size += 0.5f;
-            camera.DOOrthoSize(size, 0.05f);
+            camera.DOOrthoSize(Count + 10f, .3f);
+            camera.transform.DOKill();
+            camera.transform.DOScale(Count * 0.1f + 1f, .3f);
         }
 
         public void DestroyObstacle(ObstacleController obstacle) {

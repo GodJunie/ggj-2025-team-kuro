@@ -30,6 +30,8 @@ namespace GGJ {
             }
         }
 
+        public bool IsDead { get; private set; }
+
         private void Awake() {
             rigid = GetComponent<Rigidbody>();
             coll = GetComponent<SphereCollider>();
@@ -90,22 +92,29 @@ namespace GGJ {
 
         private void GameStart() {
             this.size = 1f;
+            IsDead = false;
+            anim.SetBool("Dead", false);
             this.transform.localScale = Vector3.one;
         }
 
         private void Eat() {
             this.size += 0.1f;
             this.transform.DOKill();
-            this.transform.DOScale(size, .05f);
+            this.transform.DOScale(size, .3f);
             GameController.Instance.Eat();
             anim.SetTrigger("Eat");
         }
 
         private void OnTriggerEnter(Collider other) {
+            if(IsDead) return;
+
             if(other.tag.Equals("Obstacle")) {
                 var obstacle = other.GetComponent<ObstacleController>();
 
                 if(this.Size < obstacle.Size) {
+                    IsDead = true;
+                    anim.SetBool("Dead", true);
+                    anim.SetTrigger("Pop");
                     GameController.Instance.GameOver();
                 } else {
                     Eat();

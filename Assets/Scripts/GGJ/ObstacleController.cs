@@ -8,12 +8,10 @@ namespace GGJ {
         private float velocity;
         [SerializeField]
         private float defaultSize;
+        [SerializeField]
+        private int order;
 
-        public float Size {
-            get {
-                return defaultSize * transform.localScale.x;
-            }
-        }
+        public int Order => order;
 
         private Rigidbody rigid;
         
