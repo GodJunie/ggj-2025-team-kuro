@@ -505,4 +505,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocity: 0
-  defaultSize: 0
+  order: 1

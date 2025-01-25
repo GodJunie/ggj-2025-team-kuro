@@ -7,8 +7,6 @@ namespace GGJ {
         [SerializeField]
         private float velocity;
         [SerializeField]
-        private float defaultSize;
-        [SerializeField]
         private int order;
 
         public int Order => order;

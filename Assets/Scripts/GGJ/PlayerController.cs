@@ -24,12 +24,6 @@ namespace GGJ {
 
         private float size;
 
-        public float Size {
-            get {
-                return coll.radius * transform.localScale.x;
-            }
-        }
-
         public bool IsDead { get; private set; }
 
         private void Awake() {
@@ -98,9 +92,6 @@ namespace GGJ {
         }
 
         private void Eat() {
-            this.size += 0.1f;
-            this.transform.DOKill();
-            this.transform.DOScale(size, .3f);
             GameController.Instance.Eat();
             anim.SetTrigger("Eat");
         }
@@ -111,7 +102,7 @@ namespace GGJ {
             if(other.tag.Equals("Obstacle")) {
                 var obstacle = other.GetComponent<ObstacleController>();
 
-                if(this.Size < obstacle.Size) {
+                if(GameController.Instance.Order < obstacle.Order) {
                     IsDead = true;
                     anim.SetBool("Dead", true);
                     anim.SetTrigger("Pop");
