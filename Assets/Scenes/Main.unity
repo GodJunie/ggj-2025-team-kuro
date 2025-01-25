@@ -130,11 +130,9 @@ GameObject:
   - component: {fileID: 1342221722}
   - component: {fileID: 1342221721}
   - component: {fileID: 1342221720}
-  - component: {fileID: 1342221723}
-  - component: {fileID: 1342221724}
-  - component: {fileID: 1342221726}
-  - component: {fileID: 1342221725}
-  - component: {fileID: 1342221727}
+  - component: {fileID: 1342221729}
+  - component: {fileID: 1342221728}
+  - component: {fileID: 1342221730}
   m_Layer: 0
   m_Name: PlayerCam
   m_TagString: MainCamera
@@ -216,7 +214,25 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1342221723
+--- !u!114 &1342221728
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1342221719}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e8cc40118884ed94daa6fbf966d9e373, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  SCShader: {fileID: 4800000, guid: 9e86e152fe43c9340bc3c225c8fb4b0f, type: 3}
+  FramePerSecond: 15
+  Contrast: 1
+  Burn: 0
+  SceneCut: 1
+  Fade: 0.452
+--- !u!114 &1342221729
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -225,68 +241,26 @@ MonoBehaviour:
   m_GameObject: {fileID: 1342221719}
   m_Enabled: 0
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c10108a07306cec44a642fce55f0a5c9, type: 3}
+  m_Script: {fileID: 11500000, guid: b3016c9a26de75941b452b646dfb5ff9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SCShader: {fileID: 4800000, guid: 6c4912886dfcd564da449dd941df9045, type: 3}
-  Glitch: 0.512
---- !u!114 &1342221724
+  SCShader: {fileID: 4800000, guid: 7af1c2a7e3d2f9341a0d1ad201a4b2d7, type: 3}
+  Distortion: 1
+--- !u!114 &1342221730
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1342221719}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d16921deec1fb3e4d822f2fd94934111, type: 3}
+  m_Script: {fileID: 11500000, guid: 60c6f98eb41251f4aa0bfc61b0873092, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  SCShader: {fileID: 4800000, guid: 7920ab03c9c9b6442bdc5fe441353822, type: 3}
-  DotSize: 4.72
---- !u!114 &1342221725
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1342221719}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a8fb250eb7da1b44ea0416fc42307392, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SCShader: {fileID: 4800000, guid: 39ed1064eda419c45b8a03480719ae2c, type: 3}
-  DotSize: 4.72
---- !u!114 &1342221726
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1342221719}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ad8ace046fbac34428ac1c271b492f8a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SCShader: {fileID: 4800000, guid: 4ec26f5b29490ff4b92c47d896d7bd65, type: 3}
-  DotSize: 0.5
---- !u!114 &1342221727
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1342221719}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f781a87b9b71ff2499a64018f6a1c875, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  SCShader: {fileID: 4800000, guid: 75b8e42e69b04ac4a8ac146a83d9deaf, type: 3}
-  Threshold: 1
-  DotSize: 1
+  SCShader: {fileID: 4800000, guid: 1ace800f36a74434eb032633c1dddd4e, type: 3}
+  Distortion: 1.3
+  Speed: 1.7
 --- !u!1 &1533639305
 GameObject:
   m_ObjectHideFlags: 0
@@ -547,6 +521,7 @@ MonoBehaviour:
   maxSpeed: 5
   acceleration: 2
   deceleration: 3
+  anim: {fileID: 1643851048}
 --- !u!1 &2005613973
 GameObject:
   m_ObjectHideFlags: 0

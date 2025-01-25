@@ -8,6 +8,8 @@ namespace GGJ {
         [SerializeField] private float maxSpeed = 5f;
         [SerializeField] private float acceleration = 2f;
         [SerializeField] private float deceleration = 3f; // 감속도
+        [SerializeField]
+        private Animator anim;
         
         private Rigidbody rigid;
         private SphereCollider coll;
@@ -78,6 +80,7 @@ namespace GGJ {
             this.size += 0.1f;
             this.transform.localScale = Vector3.one * size;
             GameController.Instance.Eat();
+            anim.SetTrigger("Eat");
         }
 
         private void OnTriggerEnter(Collider other) {
