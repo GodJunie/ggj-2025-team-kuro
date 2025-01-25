@@ -533,8 +533,14 @@ MonoBehaviour:
   obstacles:
   - {fileID: 5919469526399550786, guid: f04073297ac7ef1499af7ea4811ba358, type: 3}
   - {fileID: 2488646825902673220, guid: 1d5a5e2db20126d4aa743f1f99f36a0e, type: 3}
+  - {fileID: 1995858117170899243, guid: 98ff4475ed19a4752ad25bf567973387, type: 3}
+  - {fileID: -459640026372197514, guid: 3e2e668fe6f714100a579f937ffd89c7, type: 3}
+  - {fileID: 8473669113635260959, guid: fa7233588088a449799d553f4813ea28, type: 3}
+  - {fileID: 922147479972415772, guid: 2c630d44646494501895651630b073a7, type: 3}
+  - {fileID: 167015683586471842, guid: ccfa7eb925ac448eaa769bd092ca0edf, type: 3}
   camera: {fileID: 1342221721}
   sizeMax: 0
+  maxDistance: 2
   objCountMin: 4
   objCountMax: 10
 --- !u!4 &1533639307
