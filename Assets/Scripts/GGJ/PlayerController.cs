@@ -83,7 +83,6 @@ namespace GGJ {
             transform.rotation = Quaternion.AngleAxis(smoothedAngle, Vector3.forward);
         }
 
-
         private void GameStart() {
             this.size = 1f;
             IsDead = false;

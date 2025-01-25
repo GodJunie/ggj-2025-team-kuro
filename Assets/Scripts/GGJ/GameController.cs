@@ -12,12 +12,22 @@ namespace GGJ {
         private List<ObstacleController> obstacles;
         [SerializeField]
         private new Camera camera;
-        
         [SerializeField]
         private float maxDistance = 2f;
 
         [SerializeField]
         private int maxOrder = 4;
+        [SerializeField]
+        private int maxCount = 60;
+
+        [SerializeField]
+        private int minObjCount = 10;
+        [SerializeField]
+        private int maxObjCount = 20;
+        [SerializeField]
+        private int minEdibleObjCount = 5;
+        [SerializeField]
+        private int maxEdibleObjCount = 7;
 
         private List<ObstacleController> obstaclePool;
 
@@ -40,7 +50,7 @@ namespace GGJ {
         private void Update() {
             Timer += Time.deltaTime;
 
-            while(obstaclePool.Count < 10) {
+            while(obstaclePool.Count < Mathf.Lerp(minObjCount, maxObjCount, (float)Order / maxOrder)) {
                 GenerateObject();
             }
         }
@@ -50,7 +60,18 @@ namespace GGJ {
         }
 
         private void GenerateObject() {
-            var obj = Instantiate(obstacles.Random());
+            ObstacleController obj;
+            int edibleObjCount = obstaclePool.Count(e => e.Order <= Order);
+
+            if(Order < maxOrder) {
+                if(edibleObjCount < Mathf.Lerp(minEdibleObjCount, maxEdibleObjCount, (float)Order / maxOrder)) {
+                    obj = Instantiate(obstacles.Where(e => e.Order <= Order).Random());
+                } else {
+                    obj = Instantiate(obstacles.Where(e => e.Order > Order).Random());
+                }
+            } else {
+                obj = Instantiate(obstacles.Where(e => e.Order == maxOrder).Random());
+            }
 
             Vector3 pos = getRandomCord();
 

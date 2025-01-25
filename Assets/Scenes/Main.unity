@@ -534,9 +534,17 @@ MonoBehaviour:
   - {fileID: 5919469526399550786, guid: f04073297ac7ef1499af7ea4811ba358, type: 3}
   - {fileID: 2488646825902673220, guid: 1d5a5e2db20126d4aa743f1f99f36a0e, type: 3}
   - {fileID: 2687336721330720161, guid: 3e2e668fe6f714100a579f937ffd89c7, type: 3}
+  - {fileID: 104261664441971354, guid: 98ff4475ed19a4752ad25bf567973387, type: 3}
+  - {fileID: 7631621763622687131, guid: fa7233588088a449799d553f4813ea28, type: 3}
+  - {fileID: 3585557392065392118, guid: 289b2d5e63f5f45e0a1b4b5eb0d855c9, type: 3}
   camera: {fileID: 1342221721}
   maxDistance: 2
   maxOrder: 4
+  maxCount: 60
+  minObjCount: 10
+  maxObjCount: 20
+  minEdibleObjCount: 5
+  maxEdibleObjCount: 7
 --- !u!4 &1533639307
 Transform:
   m_ObjectHideFlags: 0
@@ -718,7 +726,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -0.264, y: -0.425, z: 0}
-  m_LocalScale: {x: 2, y: 2, z: 2}
+  m_LocalScale: {x: 4, y: 4, z: 4}
   m_ConstrainProportionsScale: 1
   m_Children:
   - {fileID: 1643851046}
