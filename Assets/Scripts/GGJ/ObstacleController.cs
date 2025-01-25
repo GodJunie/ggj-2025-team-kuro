@@ -7,35 +7,36 @@ namespace GGJ {
     public class ObstacleController : MonoBehaviour {
         [SerializeField]
         private float velocity;
-        [SerializeField]
-        private float size;
 
         public float Size {
             get {
-                return size * transform.localScale.x;
+                return coll.radius * transform.localScale.x;
             }
         }
 
         private Rigidbody rigid;
-        private Collider coll;
+        private SphereCollider coll;
         
         private void Awake() {
             this.rigid = GetComponent<Rigidbody>(); 
-            this.coll = GetComponent<Collider>();
+            this.coll = GetComponent<SphereCollider>();
         }
 
         private void Start() {
             Init(velocity);
         }
 
-        [Button]
         public void Init(float velocity) {
-            this.rigid.angularVelocity = GetRandomVector3() * 10f;
-            this.rigid.linearVelocity = GetRandomVector3() * velocity;
+            this.rigid.angularVelocity = GetRandomVector3() * 2f;
+            this.rigid.linearVelocity = GetRandomVector2() * velocity;
         }
 
-        private Vector3 GetRandomVector3() {
+        public static Vector3 GetRandomVector3() {
             return new Vector3(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f)).normalized;
+        }
+
+        public static Vector2 GetRandomVector2() {
+            return new Vector2(Random.Range(0f, 1f), Random.Range(0f, 1f)).normalized;
         }
     }
 }

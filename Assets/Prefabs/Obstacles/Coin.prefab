@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 5919469526399550786}
   m_Layer: 0
   m_Name: Coin
-  m_TagString: Untagged
+  m_TagString: Obstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -96,7 +96,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocity: 1
-  obj: {fileID: 0}
 --- !u!1 &5113589352757765497
 GameObject:
   m_ObjectHideFlags: 0

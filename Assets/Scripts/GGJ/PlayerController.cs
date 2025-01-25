@@ -1,23 +1,69 @@
 using UnityEngine;
 
 namespace GGJ {
+    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(SphereCollider))]
     public class PlayerController : MonoBehaviour {
         [SerializeField]
-        private float speed;
+        private float speed = 5f;
+
+        private Rigidbody rigid;
+        private SphereCollider coll;
+
+        private Vector3 targetPosition;
+        private bool isAlive = true;
+        private bool isMoving = false;
 
         private float size;
 
+        public float Size {
+            get {
+                return coll.radius * transform.localScale.x;
+            }
+        }
 
-        private void Start() {
+        private void Awake() {
+            rigid = GetComponent<Rigidbody>();
+            coll = GetComponent<SphereCollider>();
+            GameStart();
+        }
+
+        void Start() {
+            // 초기 목표 위치는 현재 위치
             GameController.Instance.OnGameStart += GameStart;
+            targetPosition = transform.position;
         }
 
-        private void Update() {
-            var deltaPos = new Vector3(Input.GetAxisRaw("Horizontal"), Input.GetAxisRaw("Vertical"), 0f);
-            deltaPos *= speed * Time.deltaTime;
-            this.transform.position += deltaPos;
+        void Update() {
+            if(!isAlive) return;
+
+            // mouse click input
+            if(Input.GetMouseButton(0)) {
+                SetTargetPosition();
+            }
+
+            // move
+            if(isMoving) {
+                MoveToTarget();
+            }
         }
 
+        private void SetTargetPosition() {
+            Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            targetPosition = new Vector3(mousePosition.x, mousePosition.y, transform.position.z); // Y축만 변경
+            isMoving = true;
+        }
+
+        private void MoveToTarget() {
+            Vector3 direction = (targetPosition - transform.position).normalized;
+            transform.position += direction * speed * Time.deltaTime;
+
+            // Arrived at dest
+            if(Vector3.Distance(transform.position, targetPosition) < 0.1f) {
+                isMoving = false;
+            }
+        }
+     
         private void GameStart() {
             this.size = 1f;
             this.transform.localScale = Vector3.one;
@@ -28,16 +74,17 @@ namespace GGJ {
             this.transform.localScale = Vector3.one * size;
         }
 
-
         private void OnTriggerEnter(Collider other) {
             if(other.tag.Equals("Obstacle")) {
                 var obstacle = other.GetComponent<ObstacleController>();
 
-                var size = obstacle.Size;
+                if(this.Size < obstacle.Size) {
 
-                if(this.size < size) {
-
+                } else {
+                    Eat();
                 }
+
+                obstacle.gameObject.SetActive(false);
             }
         }
     }

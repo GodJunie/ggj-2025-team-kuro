@@ -5,10 +5,6 @@ using System.Linq;
 using UnityEngine;
 
 public static class UnityExtensions {
-    public static Vector3 GetRandomVector3() {
-        return new Vector3(UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f), UnityEngine.Random.Range(0f, 1f)).normalized;
-    }
-
     public static T Random<T>(this IEnumerable<T> list) {
         return list.ToList().Random();
     }

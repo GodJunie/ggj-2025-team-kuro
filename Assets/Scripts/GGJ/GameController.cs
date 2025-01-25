@@ -15,12 +15,21 @@ namespace GGJ {
 
         public bool IsPlaying { get; private set; }
         public Action OnGameStart { get; set; }
+        public Action OnGameEnd { get; set; }
 
-        public void GameStart() {
+        public float Timer { get; private set; }
 
-
+        private void Start() {
+            GameStart();
         }
 
+        public void GameStart() {
+            IsPlaying = true;
+            this.OnGameStart?.Invoke();
+        }
 
+        public void GameOver() {
+            this.OnGameEnd?.Invoke();   
+        }
     }
 }
