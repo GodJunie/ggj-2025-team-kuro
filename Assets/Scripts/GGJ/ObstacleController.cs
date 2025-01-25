@@ -13,6 +13,10 @@ namespace GGJ {
         private Material redMat;
         [SerializeField]
         private Material blueMat;
+        [SerializeField]
+        private float rotSpeed;
+        [SerializeField]
+        private bool is2DObj;
 
         public int Order => order;
 
@@ -28,7 +32,11 @@ namespace GGJ {
 
         public void Init(Vector3 position, Vector2 velocity) {
             this.transform.position = position;
-            this.rigid.angularVelocity = GetRandomVector3() * 2f;
+            if(is2DObj) {
+                this.rigid.angularVelocity = Vector3.forward * rotSpeed;
+            } else {
+                this.rigid.angularVelocity = GetRandomVector3() * rotSpeed;
+            }
             this.rigid.linearVelocity = velocity;
             CheckOrder();
         }
@@ -54,21 +62,17 @@ namespace GGJ {
         }
 
         public void CheckOrder() {
-            if(GameController.Instance.Order < this.order) {
-                // red
-                foreach(var renderer in this.GetComponentsInChildren<MeshRenderer>()) {
-                    var newMats = renderer.materials.Where(e => e != blueMat && e != redMat).ToList();
-                    newMats.Add(redMat);
-                    renderer.materials = newMats.ToArray();
-                }
-            } else {
-                // blue
-                foreach(var renderer in this.GetComponentsInChildren<MeshRenderer>()) {
-                    var newMats = renderer.materials.Where(e => e != blueMat && e != redMat).ToList();
-                    newMats.Add(blueMat);
-                    renderer.materials = newMats.ToArray();
-                }
+            var mat = GameController.Instance.Order < this.order ? redMat : blueMat;
+            foreach(var renderer in this.GetComponentsInChildren<Renderer>()) {
+                var newMats = renderer.materials.Where(e => e != blueMat && e != redMat).ToList();
+                newMats.Add(mat);
+                newMats.Reverse();
+                renderer.materials = newMats.ToArray();
             }
+            //if(is2DObj) {
+            //} else {
+                
+            //}
         }
     }
 }

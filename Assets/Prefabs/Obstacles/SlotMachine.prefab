@@ -99,6 +99,8 @@ MonoBehaviour:
   order: 1
   redMat: {fileID: 2100000, guid: f85c6679560a2af45a69740b833cb0f2, type: 2}
   blueMat: {fileID: 2100000, guid: 32a76832b79e84347ad9df08b12709c3, type: 2}
+  rotSpeed: 2
+  is2DObj: 0
 --- !u!1001 &6943439574720811838
 PrefabInstance:
   m_ObjectHideFlags: 0
