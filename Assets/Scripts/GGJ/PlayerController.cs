@@ -1,3 +1,4 @@
+using DG.Tweening;
 using UnityEngine;
 
 namespace GGJ
@@ -109,7 +110,8 @@ namespace GGJ
         private void Eat()
         {
             this.size += 0.1f;
-            this.transform.localScale = Vector3.one * size;
+            this.transform.DOKill();
+            this.transform.DOScale(size, .05f);
             GameController.Instance.Eat();
             anim.SetTrigger("Eat");
         }
