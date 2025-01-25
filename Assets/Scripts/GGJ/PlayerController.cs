@@ -4,10 +4,13 @@ namespace GGJ
 {
     public class PlayerController2D : MonoBehaviour
     {
-        [SerializeField]
-        private float speed = 5f;
+        [SerializeField] private float maxSpeed = 5f;
+        [SerializeField] private float acceleration = 2f;
+        [SerializeField] private float deceleration = 3f; // 감속도
+
 
         private Vector3 targetPosition;
+        private Vector3 currentVelocity = Vector3.zero; // 현재 속도
         private bool isAlive = true;
         private bool isMoving = false;
 
@@ -44,12 +47,14 @@ namespace GGJ
         private void MoveToTarget()
         {
             Vector3 direction = (targetPosition - transform.position).normalized;
-            transform.position += direction * speed * Time.deltaTime;
+            currentVelocity = Vector3.MoveTowards(currentVelocity, direction * maxSpeed, acceleration * Time.deltaTime);
+            transform.position += currentVelocity * Time.deltaTime;
 
             // Arrived at dest
             if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
             {
                 isMoving = false;
+                currentVelocity = Vector3.zero; // 정지 상태로 속도 초기화
             }
         }
     }
