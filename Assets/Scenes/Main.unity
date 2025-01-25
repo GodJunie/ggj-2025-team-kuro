@@ -745,9 +745,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
+  increaseSpeed: 1.5
   maxSpeed: 5
   acceleration: 2
-  deceleration: 3
+  deceleration: 7
   rotationSpeed: 5
   anim: {fileID: 1643851048}
 --- !u!136 &1712446232

@@ -123,6 +123,7 @@ namespace GGJ {
 
             player.transform.DOKill();
             player.transform.DOScale(size, .5f);
+            player.SetSpeed(Order);
         }
 
         public void DestroyObstacle(ObstacleController obstacle) {

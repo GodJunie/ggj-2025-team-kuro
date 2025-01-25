@@ -6,6 +6,7 @@ namespace GGJ {
     //[RequireComponent(typeof(SphereCollider))]
     public class PlayerController : MonoBehaviour {
         [SerializeField] private float speed = 5f;
+        [SerializeField] private float increaseSpeed = 1.5f;
         [SerializeField] private float maxSpeed = 5f;
         [SerializeField] private float acceleration = 2f;
         [SerializeField] private float deceleration = 3f; // 감속도
@@ -23,6 +24,7 @@ namespace GGJ {
         private bool isMoving = false;
 
         private float size;
+        private int currentOrder = 0;
 
         public bool IsDead { get; private set; }
 
@@ -81,6 +83,15 @@ namespace GGJ {
 
             // Z축 회전 적용
             transform.rotation = Quaternion.AngleAxis(smoothedAngle, Vector3.forward);
+        }
+
+        public void SetSpeed(int order)
+        {
+            if (order > currentOrder)
+            {
+                speed *= increaseSpeed;
+                currentOrder++;
+            } 
         }
 
         private void GameStart() {
