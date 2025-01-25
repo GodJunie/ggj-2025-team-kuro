@@ -12,6 +12,8 @@ namespace GGJ {
         private List<ObstacleController> obstacles;
         [SerializeField]
         private new Camera camera;
+        [SerializeField]
+        private float sizeMax;
 
         private List<ObstacleController> obstaclePool;
 
@@ -94,6 +96,11 @@ namespace GGJ {
             camera.DOKill();
             size += 0.5f;
             camera.DOOrthoSize(size, 0.05f);
+        }
+
+        public void DestroyObstacle(ObstacleController obstacle) {
+            obstaclePool.Remove(obstacle);
+            Destroy(obstacle.gameObject);
         }
     }
 }

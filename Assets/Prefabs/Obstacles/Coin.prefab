@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6730062599462489058}
   - component: {fileID: 4448779036273219896}
   - component: {fileID: 5919469526399550786}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Coin
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -108,7 +108,7 @@ GameObject:
   - component: {fileID: 2019201885053713251}
   - component: {fileID: 7932689955682422954}
   - component: {fileID: 8673161081241012614}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: Default
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -192,7 +192,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 2169635470334501025}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: coin
   m_TagString: Untagged
   m_Icon: {fileID: 0}

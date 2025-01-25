@@ -38,5 +38,17 @@ namespace GGJ {
         public static Vector2 GetRandomVector2() {
             return new Vector2(Random.Range(0f, 1f), Random.Range(0f, 1f)).normalized;
         }
+
+        private void OnTriggerEnter(Collider other) {
+            if(other.tag == "Player") {
+                GameController.Instance.DestroyObstacle(this);
+            }
+        }
+
+        private void OnTriggerExit(Collider other) {
+            if(other.tag == "MainCamera") {
+                GameController.Instance.DestroyObstacle(this);
+            }
+        }
     }
 }

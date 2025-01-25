@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 1640796538340501846}
   - component: {fileID: 8643482568891066813}
   - component: {fileID: 2488646825902673220}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: SlotMachine
   m_TagString: Obstacle
   m_Icon: {fileID: 0}
@@ -105,9 +105,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 9170091908649981923}
     m_Modifications:
+    - target: {fileID: 1178505554247534, guid: 99b5cf7aa94d64943b73e4d3f6d7cd85, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 1192465140438920, guid: 99b5cf7aa94d64943b73e4d3f6d7cd85, type: 3}
+      propertyPath: m_Layer
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 1716332633066488, guid: 99b5cf7aa94d64943b73e4d3f6d7cd85, type: 3}
       propertyPath: m_Name
       value: Arcade_machine
+      objectReference: {fileID: 0}
+    - target: {fileID: 1716332633066488, guid: 99b5cf7aa94d64943b73e4d3f6d7cd85, type: 3}
+      propertyPath: m_Layer
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 1716332633066488, guid: 99b5cf7aa94d64943b73e4d3f6d7cd85, type: 3}
       propertyPath: m_IsActive
