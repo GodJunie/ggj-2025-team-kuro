@@ -96,7 +96,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   velocity: 1
-  defaultSize: 0.26
+  order: 0
 --- !u!1 &5113589352757765497
 GameObject:
   m_ObjectHideFlags: 0
