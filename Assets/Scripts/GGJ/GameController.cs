@@ -1,4 +1,5 @@
 using DG.Tweening;
+using Sirenix.OdinInspector;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -6,41 +7,101 @@ using UnityEngine;
 
 namespace GGJ {
     public class GameController : SingletonBehaviour<GameController> {
-        [SerializeField]
-        private PlayerController player;
-        [SerializeField]
-        private List<ObstacleController> obstacles;
-        [SerializeField]
-        private new Camera camera;
-        [SerializeField]
-        private float maxDistance = 2f;
+        [System.Serializable]
+        public class ObstacleInfo {
+            [SerializeField]
+            [HorizontalGroup("g", 80f)]
+            [BoxGroup("g/Image")]
+            [PreviewField(70f, Alignment = ObjectFieldAlignment.Center)]
+            [HideLabel]
+            private Sprite image;
 
+            [SerializeField]
+            [HorizontalGroup("g")]
+            [BoxGroup("g/Infos")]
+            private int level;
+            [SerializeField]
+            [BoxGroup("g/Infos")]
+            private float velocity;
+            [SerializeField]
+            [BoxGroup("g/Infos")]
+            private bool followPlayer;
+
+            public int Level => level;
+            public Sprite Image => image;
+            public float Velocity => velocity;
+            public bool FollowPlayer => followPlayer;
+        }
+
+        [System.Serializable]
+        public class ProbInfo {
+            [SerializeField]
+            private float[] probs;
+
+            public float[] Probs => probs;
+
+            public int GetLevel() {
+                float rand = UnityEngine.Random.Range(0f, probs.Sum());
+
+                for(int i = 0; i < probs.Length; i++) {
+                    float prob = probs[i];
+                    if(rand < prob) return i - 2;
+                    rand -= prob;
+                }
+
+                return 0;
+            }
+        }
+
+
+        #region Serialized Fields
         [SerializeField]
-        private int maxOrder = 4;
+        [TabGroup("g", "밸런스")]
+        private List<ObstacleInfo> obstacleInfos;
         [SerializeField]
+        [TabGroup("g", "밸런스")]
+        private List<ProbInfo> probInfos;
+        [SerializeField]
+        [TabGroup("g", "밸런스")]
+        private int maxLevel = 4;
+        [SerializeField]
+        [TabGroup("g", "밸런스")]
         private int maxCount = 60;
 
         [SerializeField]
+        [TabGroup("g", "밸런스")]
         private int minObjCount = 10;
         [SerializeField]
+        [TabGroup("g", "밸런스")]
         private int maxObjCount = 20;
-        [SerializeField]
-        private int minEdibleObjCount = 5;
-        [SerializeField]
-        private int maxEdibleObjCount = 7;
 
-        private List<ObstacleController> obstaclePool;
+        [SerializeField]
+        [TabGroup("g", "Objects")]
+        private ObstacleController obstaclePrefab;
+        [SerializeField]
+        [TabGroup("g", "Objects")]
+        private PlayerController player;
+        [SerializeField]
+        [TabGroup("g", "Objects")]
+        private new Camera camera;
+        [SerializeField]
+        [TabGroup("g", "Objects")]
+        private float maxDistance = 2f;
+        #endregion
 
         public bool IsPlaying { get; private set; }
         public Action OnGameStart { get; set; }
         public Action OnGameEnd { get; set; }
         public float Timer { get; private set; }
-        public int Order { get; private set; }
+        public int Level { get; private set; }
         public int Count { get; private set; }
+
+        private List<ObstacleController> obstacles;
+
 
         protected override void Awake() {
             base.Awake();
-            obstaclePool = new List<ObstacleController>();
+            obstacles = new List<ObstacleController>();
         }
 
         private void Start() {
@@ -50,50 +111,48 @@ namespace GGJ {
         private void Update() {
             Timer += Time.deltaTime;
 
-            while(obstaclePool.Count < Mathf.Lerp(minObjCount, maxObjCount, (float)Order / maxOrder)) {
+            while(obstacles.Count(e => e.Activated) < Mathf.Lerp(minObjCount, maxObjCount, (float)Level / maxLevel)) {
                 GenerateObject();
             }
         }
 
-        private Rect GetCamRect() {
-            return new Rect(camera.transform.position.x, camera.transform.position.y, camera.orthographicSize * 18f / 16f, camera.orthographicSize * 2f);
-        }
-
         private void GenerateObject() {
-            ObstacleController obj;
-            int edibleObjCount = obstaclePool.Count(e => e.Order <= Order);
+            var obstacle = obstacles.Find(e => !e.Activated);
 
-            if(Order < maxOrder) {
-                if(edibleObjCount < Mathf.Lerp(minEdibleObjCount, maxEdibleObjCount, (float)Order / maxOrder)) {
-                    obj = Instantiate(obstacles.Where(e => e.Order <= Order).Random());
-                } else {
-                    obj = Instantiate(obstacles.Where(e => e.Order > Order && e.Order <= Order + 1).Random());
-                }
-            } else {
-                obj = Instantiate(obstacles.Where(e => e.Order == maxOrder).Random());
+            if(obstacle == null) {
+                obstacle = Instantiate(obstaclePrefab);
+                obstacles.Add(obstacle);
             }
 
-            Vector3 pos = getRandomCord();
+            int level = probInfos[Level].GetLevel() + Level;
+            var info = obstacleInfos.Where(e => e.Level == level).Random();
 
-            var dir = player.transform.position - pos;
-            obj.Init(pos, dir.normalized * UnityEngine.Random.Range(1f, 4f));
-            obstaclePool.Add(obj);
+            var pos = GetRandomSpawnPoint();
+            var dir = (Vector2)player.transform.position - pos;
+
+            obstacle.Init(pos, GetRandomVelocity(pos).normalized * info.Velocity, info.Image, info.Level);
         }
 
-        private Vector3 getRandomCord() {
-            var camRect = GetCamRect();
+        private Vector2 GetRandomSpawnPoint() {
             var center = player.transform.position;
             var rad = camera.orthographicSize + maxDistance;
             var right = Vector3.right * rad;
             return center + Quaternion.AngleAxis(UnityEngine.Random.Range(0f, 360f), Vector3.forward) * right;
         }
 
+        private Vector2 GetRandomVelocity(Vector3 pos) {
+            var dir = player.transform.position - pos;
+
+            return Quaternion.AngleAxis(UnityEngine.Random.Range(-30f, 30f), Vector3.forward) * dir;
+        }
+
+
         public void GameStart() {
-            Order = 0;
+            Level = 0;
             Count = 0;
 
             this.OnGameStart?.Invoke();
-            obstaclePool.Clear();
+            obstacles.Clear();
 
             camera.orthographicSize = 10f;
             camera.transform.localScale = Vector3.one;
@@ -108,12 +167,18 @@ namespace GGJ {
 
         public void Eat() {
             Count++;
-            // order 0~4
-            Order = Count / 10;
-            int clampedOrder = Mathf.Clamp(Order, 0, maxOrder);
 
-            float size = Mathf.Lerp(Mathf.Pow(2, Order), Mathf.Pow(2, Order + 1), (Count % 10) / 10f);
-            float clampedSize = Mathf.Lerp(Mathf.Pow(2, clampedOrder), Mathf.Pow(2, clampedOrder + 1), (Count % 10) / 10f);
+            if(Count >= maxCount) {
+                GameOver();
+                return;
+            }
+
+            // order 0~4
+            Level = Count / 10;
+            int clampedLevel = Mathf.Clamp(Level, 0, maxLevel);
+
+            float size = Mathf.Lerp(Mathf.Pow(2, Level), Mathf.Pow(2, Level + 1), (Count % 10) / 10f);
+            float clampedSize = Mathf.Lerp(Mathf.Pow(2, clampedLevel), Mathf.Pow(2, clampedLevel + 1), (Count % 10) / 10f);
 
             camera.DOKill();
             camera.DOOrthoSize(clampedSize * 10f, .5f);
@@ -123,16 +188,6 @@ namespace GGJ {
 
             player.transform.DOKill();
             player.transform.DOScale(size, .5f);
-
-            foreach(var obj in obstaclePool) {
-                obj.CheckOrder();
-            }
-
-        }
-
-        public void DestroyObstacle(ObstacleController obstacle) {
-            obstaclePool.Remove(obstacle);
-            Destroy(obstacle.gameObject);
         }
     }
 }

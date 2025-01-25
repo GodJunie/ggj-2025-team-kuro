@@ -2,7 +2,7 @@ using DG.Tweening;
 using UnityEngine;
 
 namespace GGJ {
-    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(Rigidbody2D))]
     //[RequireComponent(typeof(SphereCollider))]
     public class PlayerController : MonoBehaviour {
         [SerializeField] private float speed = 5f;
@@ -15,8 +15,7 @@ namespace GGJ {
         [SerializeField]
         private Animator anim;
 
-        private Rigidbody rigid;
-        private CapsuleCollider coll;
+        private Rigidbody2D rigid;
 
         private Vector3 targetPosition;
         private Vector3 currentVelocity = Vector3.zero; // 현재 속도
@@ -28,8 +27,7 @@ namespace GGJ {
         public bool IsDead { get; private set; }
 
         private void Awake() {
-            rigid = GetComponent<Rigidbody>();
-            coll = GetComponent<CapsuleCollider>();
+            rigid = GetComponent<Rigidbody2D>();
             GameStart();
         }
 
@@ -84,8 +82,7 @@ namespace GGJ {
             transform.rotation = Quaternion.AngleAxis(smoothedAngle, Vector3.forward);
         }
 
-        private void SetSpeed()
-        {
+        private void SetSpeed() {
             speed *= gameObject.transform.localScale.x;
         }
 
@@ -102,13 +99,13 @@ namespace GGJ {
             SetSpeed();
         }
 
-        private void OnTriggerEnter(Collider other) {
+        private void OnTriggerEnter2D(Collider2D collision) {
             if(IsDead) return;
 
-            if(other.tag.Equals("Obstacle")) {
-                var obstacle = other.GetComponent<ObstacleController>();
+            if(collision.tag.Equals("Obstacle")) {
+                var obstacle = collision.GetComponent<ObstacleController>();
 
-                if(GameController.Instance.Order < obstacle.Order) {
+                if(GameController.Instance.Level < obstacle.Level) {
                     IsDead = true;
                     anim.SetBool("Dead", true);
                     anim.SetTrigger("Pop");
