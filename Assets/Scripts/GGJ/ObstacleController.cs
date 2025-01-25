@@ -1,3 +1,4 @@
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 namespace GGJ {
@@ -7,7 +8,13 @@ namespace GGJ {
         [SerializeField]
         private float velocity;
         [SerializeField]
-        private Transform obj;
+        private float size;
+
+        public float Size {
+            get {
+                return size * transform.localScale.x;
+            }
+        }
 
         private Rigidbody rigid;
         private Collider coll;
@@ -17,12 +24,18 @@ namespace GGJ {
             this.coll = GetComponent<Collider>();
         }
 
-        public void Init() {
-
+        private void Start() {
+            Init(velocity);
         }
 
-        private void Update() {
-                
+        [Button]
+        public void Init(float velocity) {
+            this.rigid.angularVelocity = GetRandomVector3() * 10f;
+            this.rigid.linearVelocity = GetRandomVector3() * velocity;
+        }
+
+        private Vector3 GetRandomVector3() {
+            return new Vector3(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f)).normalized;
         }
     }
 }

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4308611200953963477}
   - component: {fileID: 6730062599462489058}
   - component: {fileID: 4370875884856486862}
+  - component: {fileID: 5919469526399550786}
   m_Layer: 0
   m_Name: Coin
   m_TagString: Untagged
@@ -56,7 +57,7 @@ Rigidbody:
     m_Bits: 0
   m_ImplicitCom: 1
   m_ImplicitTensor: 1
-  m_UseGravity: 1
+  m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
   m_Constraints: 0
@@ -76,12 +77,26 @@ SphereCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Radius: 0.26
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &5919469526399550786
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4596450672569998219}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1a7484b745f4444459a250ec9a5442e2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  velocity: 1
+  obj: {fileID: 0}
 --- !u!1 &5113589352757765497
 GameObject:
   m_ObjectHideFlags: 0
