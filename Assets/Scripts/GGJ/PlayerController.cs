@@ -7,6 +7,8 @@ namespace GGJ
     //[RequireComponent(typeof(SphereCollider))]
     public class PlayerController : MonoBehaviour
     {
+        [SerializeField] private AudioClip biteClip;
+        [SerializeField] private AudioClip popClip;
         [SerializeField] private float speed = 5f;
         [SerializeField] private float increaseSpeed = 1.5f;
         //[SerializeField] private float maxSpeed = 5f;
@@ -18,6 +20,7 @@ namespace GGJ
         private Animator anim;
 
         private Rigidbody2D rigid;
+        private AudioSource audioSource;
 
         private Vector3 targetPosition;
         private Vector3 currentVelocity = Vector3.zero; // 현재 속도
@@ -31,6 +34,7 @@ namespace GGJ
         private void Awake()
         {
             rigid = GetComponent<Rigidbody2D>();
+            audioSource = GetComponent<AudioSource>();
             GameStart();
         }
 
@@ -124,6 +128,17 @@ namespace GGJ
             GameController.Instance.Eat();
             anim.SetTrigger("Eat");
             SetSpeed();
+            PlayBiteEffect();
+        }
+
+        private void PlayBiteEffect()
+        {
+            audioSource.PlayOneShot(biteClip);
+        }
+
+        private void PlayPopEffect()
+        {
+            audioSource.PlayOneShot(popClip);
         }
 
         private void OnTriggerEnter2D(Collider2D collision)
@@ -139,6 +154,7 @@ namespace GGJ
                     IsDead = true;
                     anim.SetBool("Dead", true);
                     anim.SetTrigger("Pop");
+                    PlayPopEffect();
                     GameController.Instance.GameOver();
                 }
                 else
