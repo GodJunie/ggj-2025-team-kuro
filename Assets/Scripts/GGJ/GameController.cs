@@ -144,6 +144,8 @@ namespace GGJ {
         }
 
         private async void ReadyGame() {
+            await UniTask.Delay(500);
+
             camera.transform.DOKill();
             camera.DOKill();
             player.transform.DOKill();
@@ -199,6 +201,7 @@ namespace GGJ {
 
                 return;
             }
+
             Timer += Time.deltaTime;
             spawnTimer -= Time.deltaTime;
 
@@ -216,7 +219,7 @@ namespace GGJ {
                 obstacles.Add(obstacle);
             }
 
-            int level = probInfos[Level].GetLevel() + Level;
+            int level = probInfos[Mathf.Clamp(Level, 0, maxLevel)].GetLevel() + Level;
             var info = obstacleInfos.Where(e => e.Level == level).Random();
 
             var pos = GetRandomSpawnPoint();
