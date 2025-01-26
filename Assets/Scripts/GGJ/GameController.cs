@@ -176,6 +176,8 @@ namespace GGJ {
             Level = 0;
             Count = 0;
 
+            Time.timeScale = 1f;
+
             this.OnGameStart?.Invoke();
             obstacles.Clear();
 
@@ -192,6 +194,7 @@ namespace GGJ {
             foreach(var obstacle in obstacles) {
                 obstacle.gameObject.SetActive(false);
             }
+            Time.timeScale = 0.02f;
         }
 
         public void GameClear() {
@@ -221,6 +224,12 @@ namespace GGJ {
 
             player.transform.DOKill();
             player.transform.DOScale(size, .5f);
+        }
+
+
+        [Button]
+        private void OrderObstacles() {
+            obstacleInfos = obstacleInfos.OrderBy(e => e.Level).ToList();
         }
     }
 }
