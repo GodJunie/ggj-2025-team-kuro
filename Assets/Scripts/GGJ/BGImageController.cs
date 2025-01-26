@@ -36,8 +36,8 @@ namespace GGJ
                 if (Mathf.Abs(playerX - imageX) >= (xDistance * xAdjust))
                 {
                     float targetX = playerX > imageX ?
-                    imageX + xDistance * 7 //move to right
-                : imageX - xDistance * 7;  //move to left
+                    imageX + xDistance * 9 //move to right
+                : imageX - xDistance * 9;  //move to left
 
                     image.transform.position = new Vector3(targetX, imageY, 0f);
                 }
@@ -55,8 +55,8 @@ namespace GGJ
                 if (Mathf.Abs(playerY - imageY) >= (yDistance * yAdjust))
                 {
                     float targetY = playerY > imageY ?
-                    imageY + yDistance * 4 //move to down
-                : imageY - yDistance * 4;  //move to up
+                    imageY + yDistance * 5 //move to down
+                : imageY - yDistance * 5;  //move to up
 
                     image.transform.position = new Vector3(imageX, targetY, 0f);
                 }
