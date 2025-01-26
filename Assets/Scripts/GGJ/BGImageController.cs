@@ -12,6 +12,8 @@ namespace GGJ
 
         [SerializeField] float xDistance = 10;
         [SerializeField] float yDistance = 17.8f;
+        [SerializeField] float xAdjust = 2;
+        [SerializeField] float yAdjust = 2f;
 
         [SerializeField] private PlayerController player;
 
@@ -43,7 +45,7 @@ namespace GGJ
             {
                 float imageX = image.transform.position.x;
                 float imageY = image.transform.position.y;
-                if (Mathf.Abs(playerX - imageX) >= (xDistance * 3.5f))
+                if (Mathf.Abs(playerX - imageX) >= (xDistance * xAdjust))
                 {
                     print(image.name);
                     float targetX = playerX > imageX ?
@@ -64,7 +66,7 @@ namespace GGJ
             {
                 float imageX = image.transform.position.x;
                 float imageY = image.transform.position.y;
-                if (Mathf.Abs(playerY - imageY) >= (yDistance * 2))
+                if (Mathf.Abs(playerY - imageY) >= (yDistance * yAdjust))
                 {
                     float targetY = playerY > imageY ?
                     imageY + yDistance * 4 //move to down
