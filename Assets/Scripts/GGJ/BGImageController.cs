@@ -17,21 +17,9 @@ namespace GGJ
 
         [SerializeField] private PlayerController player;
 
-        // private void Start()
-        // {
-        //     float playerX = player.transform.position.x;
-        //     print(playerX);
-        //     foreach (var item in bgObjects)
-        //     {
-        //         print(item.name + item.transform.position+ Mathf.Abs(playerX - item.transform.position.x));
-                
-        //     }
-        // }
-
-        // Update is called once per frame
         void Update()
         {
-            //if (player.IsDead) return;
+            if (player.IsDead) return;
 
             AdjustXaxis();
             AdjustYaxis();
@@ -47,12 +35,10 @@ namespace GGJ
                 float imageY = image.transform.position.y;
                 if (Mathf.Abs(playerX - imageX) >= (xDistance * xAdjust))
                 {
-                    print(image.name);
                     float targetX = playerX > imageX ?
                     imageX + xDistance * 7 //move to right
                 : imageX - xDistance * 7;  //move to left
 
-                    //image.transform.position.Set(targetX, imageY, 0f);
                     image.transform.position = new Vector3(targetX, imageY, 0f);
                 }
             }
@@ -72,7 +58,6 @@ namespace GGJ
                     imageY + yDistance * 4 //move to down
                 : imageY - yDistance * 4;  //move to up
 
-                    //image.transform.position.Set(imageX, targetY, 0f);
                     image.transform.position = new Vector3(imageX, targetY, 0f);
                 }
             }
