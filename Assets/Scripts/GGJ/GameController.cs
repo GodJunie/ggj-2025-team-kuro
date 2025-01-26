@@ -98,6 +98,12 @@ namespace GGJ {
         [SerializeField]
         [TabGroup("g", "Objects")]
         private float maxDistance = 2f;
+        [SerializeField]
+        [TabGroup("g", "Objects")]
+        private Material blueMat;
+        [SerializeField]
+        [TabGroup("g", "Objects")]
+        private Material redMat;
         #endregion
 
         public bool IsPlaying { get; private set; }
@@ -123,6 +129,9 @@ namespace GGJ {
 
         private void Update() {
             if(!IsPlaying) {
+                if(Input.GetKeyDown(KeyCode.Space)) {
+                    GameStart();
+                }
                 return;
             }
             Timer += Time.deltaTime;
@@ -149,6 +158,7 @@ namespace GGJ {
             var dir = (Vector2)player.transform.position - pos;
 
             obstacle.Init(pos, GetRandomVelocity(pos).normalized * info.Speed, info.RotSpeed, info.Image, info.Level);
+            obstacle.SetMat(level <= this.Level ? blueMat : redMat);
         }
 
         private Vector2 GetRandomSpawnPoint() {
@@ -224,8 +234,13 @@ namespace GGJ {
 
             player.transform.DOKill();
             player.transform.DOScale(size, .5f);
-        }
 
+            foreach(var obstacle in obstacles) {
+                obstacle.SetMat(obstacle.Level <= this.Level ? blueMat : redMat);
+            }
+
+            Level = clampedLevel;
+        }
 
         [Button]
         private void OrderObstacles() {

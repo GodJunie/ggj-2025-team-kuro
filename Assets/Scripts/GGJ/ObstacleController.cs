@@ -57,6 +57,10 @@ namespace GGJ {
             this.rigid.angularVelocity = rotSpeed;
         }
 
+        public void SetMat(Material mat) {
+            this.renderer.material = mat;
+        }
+
         private void OnTriggerEnter2D(Collider2D collision) {
             if(collision.tag.Equals("Player")) {
                 this.gameObject.SetActive(false);

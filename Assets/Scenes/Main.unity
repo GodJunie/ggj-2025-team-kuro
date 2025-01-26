@@ -525,11 +525,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4f26ce09730a662439eb81f9d55b3e62, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 5
-  increaseSpeed: 1.5
-  acceleration: 2
-  deceleration: 7
-  rotationSpeed: 5
+  biteClip: {fileID: 0}
+  popClip: {fileID: 0}
+  maxSpeed: 5
+  sensitivity: 1
   anim: {fileID: 1643851048}
 --- !u!50 &1712446232
 Rigidbody2D:
@@ -610,6 +609,18 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1712446231}
+    - target: {fileID: 2261113691120428721, guid: 447d47683d975be49bb10f1e25b05e39, type: 3}
+      propertyPath: redMat
+      value: 
+      objectReference: {fileID: 2100000, guid: 774cc8dc374e7bf47be82a530225d8ce, type: 2}
+    - target: {fileID: 2261113691120428721, guid: 447d47683d975be49bb10f1e25b05e39, type: 3}
+      propertyPath: blueMat
+      value: 
+      objectReference: {fileID: 2100000, guid: 4bcbdc99bdde1b34989cf8fdfe432ead, type: 2}
+    - target: {fileID: 2261113691120428721, guid: 447d47683d975be49bb10f1e25b05e39, type: 3}
+      propertyPath: maxCount
+      value: 80
+      objectReference: {fileID: 0}
     - target: {fileID: 3176865287221499116, guid: 447d47683d975be49bb10f1e25b05e39, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
