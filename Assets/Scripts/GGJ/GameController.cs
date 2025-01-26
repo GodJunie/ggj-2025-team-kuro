@@ -1,3 +1,4 @@
+using Com.LuisPedroFonseca.ProCamera2D;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Sirenix.OdinInspector;
@@ -108,6 +109,16 @@ namespace GGJ {
         [SerializeField]
         [TabGroup("g", "Objects")]
         private GameObject hand;
+
+        [SerializeField]
+        [TabGroup("g", "Objects")]
+        private RectTransform title;
+        [SerializeField]
+        [TabGroup("g", "Objects")]
+        private ObstacleController start;
+        [SerializeField]
+        [TabGroup("g", "Objects")]
+        private Sprite startSprite;
         #endregion
 
         public bool IsPlaying { get; private set; }
@@ -121,21 +132,62 @@ namespace GGJ {
 
         private float spawnTimer;
 
+        private ProCamera2D proCam;
+
 
         protected override void Awake() {
             base.Awake();
+
+            proCam = Camera.main.GetComponent<ProCamera2D>();   
             obstacles = new List<ObstacleController>();
+            obstacles.Add(start);
+        }
+
+        private async void ReadyGame() {
+            start.gameObject.SetActive(false);
+            title.anchoredPosition = new Vector2(0f, 1000f);
+
+            title.DOKill();
+            title.DOAnchorPosY(0f, 1f);
+
+            proCam.FollowHorizontal = false;
+            proCam.FollowVertical = false;
+
+            await UniTask.Delay(1000);
+
+            start.InitStart(proCam.transform.position + new Vector3(0f, -8f, 0f), startSprite);
         }
 
         private void Start() {
-            GameStart();
+            ReadyGame();
         }
 
         private void Update() {
             if(!IsPlaying) {
-                if(Input.GetKeyDown(KeyCode.Space)) {
-                    GameStart();
+                if(Input.GetMouseButtonDown(0)) {
+                    var pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+
+                    foreach(var hit in Physics2D.RaycastAll(pos, Vector2.zero)) {
+                        if(hit.collider.gameObject == start.gameObject) {
+                            GameStart();
+                            return;
+                        }
+                    }
                 }
+
+                if(Input.touchCount > 0) {
+                    var touch = Input.touches[0];
+                    
+                    var pos = Camera.main.ScreenToViewportPoint(touch.position);
+                    
+                    foreach(var hit in Physics2D.RaycastAll(pos, Vector2.zero)) {
+                        if(hit.collider.gameObject == start.gameObject) {
+                            GameStart();
+                            return;
+                        }
+                    }
+                }
+
                 return;
             }
             Timer += Time.deltaTime;
@@ -186,13 +238,15 @@ namespace GGJ {
             return Quaternion.AngleAxis(UnityEngine.Random.Range(-45f, 45f), Vector3.forward) * dir;
         }
 
-        public void GameStart() {
+
+        public async void GameStart() {
             Level = 0;
             Count = 0;
 
             Time.timeScale = 1f;
 
-            this.OnGameStart?.Invoke();
+            player.gameObject.SetActive(true);
+
             obstacles.Clear();
 
             camera.transform.DOKill();
@@ -204,16 +258,30 @@ namespace GGJ {
             player.transform.localScale = Vector3.zero;
             player.transform.DOScale(1f, 1f);
 
+            proCam.FollowHorizontal = true;
+            proCam.FollowVertical = true;
+
+            title.DOKill();
+            title.DOAnchorPosY(1000f, 1f);
+
+            player.transform.DOMove(start.transform.position, 1f);
+
+            this.OnGameStart?.Invoke();
+
+            await UniTask.Delay(1000);
+
             IsPlaying = true;
         }
 
         public void GameOver() {
-            this.OnGameEnd?.Invoke();
             IsPlaying = false;
+            this.OnGameEnd?.Invoke();
+
             foreach(var obstacle in obstacles) {
                 obstacle.gameObject.SetActive(false);
             }
-            Time.timeScale = 0.02f;
+
+            ReadyGame();
         }
 
         public async void GameClear() {
@@ -222,12 +290,13 @@ namespace GGJ {
             foreach(var obstacle in obstacles) {
                 obstacle.gameObject.SetActive(false);
             }
-            Time.timeScale = 0.02f;
             hand.SetActive(true);
             await UniTask.Delay(1000, true);
             player.Dead();
             await UniTask.Delay(1000, true);
             hand.SetActive(false);
+
+            ReadyGame();
         }
 
         public void Eat() {

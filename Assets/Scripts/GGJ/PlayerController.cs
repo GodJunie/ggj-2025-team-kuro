@@ -41,6 +41,7 @@ namespace GGJ {
 
         void Update() {
             if(IsDead) return;
+            if(!GameController.Instance.IsPlaying) return;
 
             MouseInput();
             TouchInput();
@@ -96,6 +97,8 @@ namespace GGJ {
 
         public void Dead() {
             IsDead = true;
+            rigid.linearVelocity = Vector2.zero;
+            targetVelocity = Vector2.zero;
             anim.SetBool("Dead", true);
             anim.SetTrigger("Pop");
             PlayPopEffect();

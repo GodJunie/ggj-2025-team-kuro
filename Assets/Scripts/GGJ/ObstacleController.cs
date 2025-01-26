@@ -1,6 +1,7 @@
 using Sirenix.OdinInspector;
 using UnityEngine;
 using System.Linq;
+using UnityEngine.UIElements;
 
 namespace GGJ {
     [RequireComponent(typeof(SpriteRenderer))]
@@ -30,6 +31,18 @@ namespace GGJ {
 
         private void Start() {
 
+        }
+
+        public void InitStart(Vector2 position, Sprite image) {
+            this.renderer.sprite = image;
+            this.transform.position = position;
+            this.transform.localScale = Vector3.one;
+            this.Level = 0;
+
+            this.gameObject.SetActive(true);
+
+            this.rigid.linearVelocity = Vector2.zero;
+            this.rigid.angularVelocity = 0f;
         }
 
         public void Init(Vector2 position, Vector2 velocity, float rotSpeed, Sprite image, int level) {
