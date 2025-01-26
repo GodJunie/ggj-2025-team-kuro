@@ -32,7 +32,7 @@ namespace GGJ {
 
         }
 
-        public void Init(Vector2 position, Vector2 velocity, Sprite image, int level) {
+        public void Init(Vector2 position, Vector2 velocity, float rotSpeed, Sprite image, int level) {
             this.gameObject.SetActive(false);
 
             this.renderer.sprite = image;
@@ -54,6 +54,7 @@ namespace GGJ {
 
             this.gameObject.SetActive(true);
             this.rigid.linearVelocity = velocity;
+            this.rigid.angularVelocity = rotSpeed;
         }
 
         private void OnTriggerEnter2D(Collider2D collision) {

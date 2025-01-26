@@ -22,15 +22,19 @@ namespace GGJ {
             private int level;
             [SerializeField]
             [BoxGroup("g/Infos")]
-            private float velocity;
+            private float speed;
+            [SerializeField]
+            [BoxGroup("g/Infos")]
+            private float rotSpeed;
             [SerializeField]
             [BoxGroup("g/Infos")]
             private bool followPlayer;
 
             public int Level => level;
             public Sprite Image => image;
-            public float Velocity => velocity;
+            public float Speed => speed;
             public bool FollowPlayer => followPlayer;
+            public float RotSpeed => rotSpeed;
         }
 
         [System.Serializable]
@@ -76,6 +80,13 @@ namespace GGJ {
         private int maxObjCount = 20;
 
         [SerializeField]
+        [TabGroup("g", "밸런스")]
+        private float spawnIntervalStart = .4f;
+        [SerializeField]
+        [TabGroup("g", "밸런스")]
+        private float spawnIntervalEnd = .1f;
+
+        [SerializeField]
         [TabGroup("g", "Objects")]
         private ObstacleController obstaclePrefab;
         [SerializeField]
@@ -98,6 +109,8 @@ namespace GGJ {
 
         private List<ObstacleController> obstacles;
 
+        private float spawnTimer;
+
 
         protected override void Awake() {
             base.Awake();
@@ -109,9 +122,14 @@ namespace GGJ {
         }
 
         private void Update() {
+            if(!IsPlaying) {
+                return;
+            }
             Timer += Time.deltaTime;
+            spawnTimer -= Time.deltaTime;
 
-            while(obstacles.Count(e => e.Activated) < Mathf.Lerp(minObjCount, maxObjCount, (float)Level / maxLevel)) {
+            if(spawnTimer < 0f && obstacles.Count(e => e.Activated) < Mathf.Lerp(minObjCount, maxObjCount, (float)Level / maxLevel)) {
+                spawnTimer = Mathf.Lerp(spawnIntervalStart, spawnIntervalEnd, (float)Level / maxLevel);
                 GenerateObject();
             }
         }
@@ -130,22 +148,29 @@ namespace GGJ {
             var pos = GetRandomSpawnPoint();
             var dir = (Vector2)player.transform.position - pos;
 
-            obstacle.Init(pos, GetRandomVelocity(pos).normalized * info.Velocity, info.Image, info.Level);
+            obstacle.Init(pos, GetRandomVelocity(pos).normalized * info.Speed, info.RotSpeed, info.Image, info.Level);
         }
 
         private Vector2 GetRandomSpawnPoint() {
             var center = player.transform.position;
             var rad = camera.orthographicSize + maxDistance;
             var right = Vector3.right * rad;
-            return center + Quaternion.AngleAxis(UnityEngine.Random.Range(0f, 360f), Vector3.forward) * right;
+
+            var pos = center + Quaternion.AngleAxis(UnityEngine.Random.Range(0f, 360f), Vector3.forward) * right;
+
+            float width = camera.orthographicSize * 9f / 16f;
+
+            pos.x = Mathf.Clamp(pos.x, camera.transform.position.x - width - 1f, camera.transform.position.x + width + 1f);
+            pos.y = Mathf.Clamp(pos.y, camera.transform.position.y - camera.orthographicSize - 1f, camera.transform.position.y + camera.orthographicSize + 1f);
+
+            return pos;
         }
 
         private Vector2 GetRandomVelocity(Vector3 pos) {
             var dir = player.transform.position - pos;
 
-            return Quaternion.AngleAxis(UnityEngine.Random.Range(-30f, 30f), Vector3.forward) * dir;
+            return Quaternion.AngleAxis(UnityEngine.Random.Range(-45f, 45f), Vector3.forward) * dir;
         }
-
 
         public void GameStart() {
             Level = 0;
@@ -163,13 +188,21 @@ namespace GGJ {
 
         public void GameOver() {
             this.OnGameEnd?.Invoke();
+            IsPlaying = false;
+            foreach(var obstacle in obstacles) {
+                obstacle.gameObject.SetActive(false);
+            }
+        }
+
+        public void GameClear() {
+
         }
 
         public void Eat() {
             Count++;
 
             if(Count >= maxCount) {
-                GameOver();
+                GameClear();
                 return;
             }
 
