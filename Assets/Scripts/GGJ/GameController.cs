@@ -129,6 +129,9 @@ namespace GGJ {
 
         private void Update() {
             if(!IsPlaying) {
+                if(Input.GetKeyDown(KeyCode.Space)) {
+                    GameStart();
+                }
                 return;
             }
             Timer += Time.deltaTime;
@@ -235,6 +238,8 @@ namespace GGJ {
             foreach(var obstacle in obstacles) {
                 obstacle.SetMat(obstacle.Level <= this.Level ? blueMat : redMat);
             }
+
+            Level = clampedLevel;
         }
 
         [Button]

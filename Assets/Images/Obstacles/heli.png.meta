@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      heli_0: -473247437420683458
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

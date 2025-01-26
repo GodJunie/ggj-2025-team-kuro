@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      casiowatch_0: 6235437145239570765
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

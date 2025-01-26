@@ -147,7 +147,8 @@ TextureImporter:
     secondaryTextures: []
     spriteCustomMetadata:
       entries: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      manekineko_0: 8035554560761701672
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
