@@ -29,7 +29,7 @@ namespace GGJ
         // Update is called once per frame
         void Update()
         {
-            if (player.IsDead) return;
+            //if (player.IsDead) return;
 
             AdjustXaxis();
             AdjustYaxis();
@@ -43,12 +43,12 @@ namespace GGJ
             {
                 float imageX = image.transform.position.x;
                 float imageY = image.transform.position.y;
-                if (Mathf.Abs(playerX - imageX) >= (xDistance * 1.5f))
+                if (Mathf.Abs(playerX - imageX) >= (xDistance * 3.5f))
                 {
                     print(image.name);
                     float targetX = playerX > imageX ?
-                    imageX + xDistance * 3 //move to right
-                : imageX - xDistance * 3;  //move to left
+                    imageX + xDistance * 7 //move to right
+                : imageX - xDistance * 7;  //move to left
 
                     //image.transform.position.Set(targetX, imageY, 0f);
                     image.transform.position = new Vector3(targetX, imageY, 0f);
@@ -67,8 +67,8 @@ namespace GGJ
                 if (Mathf.Abs(playerY - imageY) >= (yDistance * 2))
                 {
                     float targetY = playerY > imageY ?
-                    imageY + yDistance * 3 //move to down
-                : imageY - yDistance * 3;  //move to up
+                    imageY + yDistance * 4 //move to down
+                : imageY - yDistance * 4;  //move to up
 
                     //image.transform.position.Set(imageX, targetY, 0f);
                     image.transform.position = new Vector3(imageX, targetY, 0f);

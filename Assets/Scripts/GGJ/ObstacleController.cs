@@ -3,76 +3,69 @@ using UnityEngine;
 using System.Linq;
 
 namespace GGJ {
-    [RequireComponent(typeof(Rigidbody))]
+    [RequireComponent(typeof(SpriteRenderer))]
+    [RequireComponent(typeof(Rigidbody2D))]
+    [RequireComponent(typeof(BoxCollider2D))]
     public class ObstacleController : MonoBehaviour {
-        [SerializeField]
-        private float velocity;
-        [SerializeField]
-        private int order;
-        [SerializeField]
-        private Material redMat;
-        [SerializeField]
-        private Material blueMat;
-        [SerializeField]
+        private new SpriteRenderer renderer;
+        private Rigidbody2D rigid;
+        private new BoxCollider2D collider;
+
+        public int Level {  get; private set; }
+
+        private bool followPlayer;
         private float rotSpeed;
-        [SerializeField]
-        private bool is2DObj;
 
-        public int Order => order;
+        public bool Activated {
+            get {
+                return this.gameObject.activeInHierarchy;
+            }
+        }
 
-        private Rigidbody rigid;
-        
         private void Awake() {
-            this.rigid = GetComponent<Rigidbody>(); 
+            this.rigid = GetComponent<Rigidbody2D>(); 
+            this.renderer = GetComponent<SpriteRenderer>();
+            this.collider = GetComponent<BoxCollider2D>();
         }
 
         private void Start() {
 
         }
 
-        public void Init(Vector3 position, Vector2 velocity) {
+        public void Init(Vector2 position, Vector2 velocity, Sprite image, int level) {
+            this.gameObject.SetActive(false);
+
+            this.renderer.sprite = image;
+
             this.transform.position = position;
-            if(is2DObj) {
-                this.rigid.angularVelocity = Vector3.forward * rotSpeed;
-            } else {
-                this.rigid.angularVelocity = GetRandomVector3() * rotSpeed;
-            }
+            Debug.Log(velocity);
+
+            var rect = image.rect;
+            rect.width /= 100f;
+            rect.height /= 100f;
+            this.collider.size = rect.size;
+
+            float size = Mathf.Lerp(Mathf.Pow(2, level), Mathf.Pow(2, level + 1), Random.Range(0f, .3f));
+
+            var multiplier = size / Mathf.Max(rect.width, rect.height);
+            this.transform.localScale = Vector3.one * multiplier;
+
+            this.Level = level;
+
+            this.gameObject.SetActive(true);
             this.rigid.linearVelocity = velocity;
-            CheckOrder();
         }
 
-        public static Vector3 GetRandomVector3() {
-            return new Vector3(Random.Range(0f, 1f), Random.Range(0f, 1f), Random.Range(0f, 1f)).normalized;
-        }
-
-        public static Vector2 GetRandomVector2() {
-            return new Vector2(Random.Range(0f, 1f), Random.Range(0f, 1f)).normalized;
-        }
-
-        private void OnTriggerEnter(Collider other) {
-            if(other.tag == "Player") {
-                GameController.Instance.DestroyObstacle(this);
+        private void OnTriggerEnter2D(Collider2D collision) {
+            if(collision.tag.Equals("Player")) {
+                this.gameObject.SetActive(false);
             }
         }
 
-        private void OnTriggerExit(Collider other) {
-            if(other.tag == "MainCamera") {
-                GameController.Instance.DestroyObstacle(this);
+        private void OnTriggerExit2D(Collider2D collision) {
+            if(collision.tag.Equals("MainCamera")) {
+                this.gameObject.SetActive(false);
             }
-        }
-
-        public void CheckOrder() {
-            var mat = GameController.Instance.Order < this.order ? redMat : blueMat;
-            foreach(var renderer in this.GetComponentsInChildren<Renderer>()) {
-                var newMats = renderer.materials.Where(e => e != blueMat && e != redMat).ToList();
-                newMats.Add(mat);
-                newMats.Reverse();
-                renderer.materials = newMats.ToArray();
-            }
-            //if(is2DObj) {
-            //} else {
-                
-            //}
         }
     }
 }
