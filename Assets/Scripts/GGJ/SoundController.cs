@@ -4,25 +4,29 @@ namespace GGJ
 {
     public class SoundController : MonoBehaviour
     {
-        AudioSource audioSource;
-        [SerializeField] AudioClip BGM;
-        [SerializeField] AudioClip biteClip;
-        [SerializeField] AudioClip popClip;
+        [SerializeField] AudioSource bgmAudioSource;
+        //[SerializeField] AudioSource sfxAudioSource;
+        [SerializeField] AudioClip bgm;
+        //[SerializeField] AudioClip biteClip;
+        //[SerializeField] AudioClip popClip;
 
         private void Start()
         {
-            audioSource = GetComponent<AudioSource>();
+            bgmAudioSource.clip = bgm;
+            bgmAudioSource.playOnAwake = true;
+            bgmAudioSource.loop = true;
+            bgmAudioSource.Play();
         }
 
-        public void PlayPopEffect()
-        {
-            audioSource.PlayOneShot(popClip);
-        }
+        // public void PlayPopEffect()
+        // {
+        //     sfxAudioSource.PlayOneShot(popClip);
+        // }
 
-        public void PlayBiteEffect()
-        {
-            audioSource.PlayOneShot(biteClip);
-        }
+        // public void PlayBiteEffect()
+        // {
+        //     sfxAudioSource.PlayOneShot(biteClip);
+        // }
     }
 
 }
