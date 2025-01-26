@@ -144,6 +144,15 @@ namespace GGJ {
         }
 
         private async void ReadyGame() {
+            camera.transform.DOKill();
+            camera.DOKill();
+            player.transform.DOKill();
+
+            camera.DOOrthoSize(10f, 1f);
+            camera.transform.DOScale(1f, 1f);
+            player.transform.localScale = Vector3.zero;
+            player.transform.DOScale(1f, 1f);
+
             start.gameObject.SetActive(false);
             title.anchoredPosition = new Vector2(0f, 1000f);
 
@@ -248,15 +257,6 @@ namespace GGJ {
             player.gameObject.SetActive(true);
 
             obstacles.Clear();
-
-            camera.transform.DOKill();
-            camera.DOKill();
-            player.transform.DOKill();
-            
-            camera.DOOrthoSize(10f, 1f);
-            camera.transform.DOScale(1f, 1f);
-            player.transform.localScale = Vector3.zero;
-            player.transform.DOScale(1f, 1f);
 
             proCam.FollowHorizontal = true;
             proCam.FollowVertical = true;
