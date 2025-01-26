@@ -47,8 +47,8 @@ MonoBehaviour:
   obstacleInfos:
   - image: {fileID: 6235437145239570765, guid: 0ccae4aaa4f5c5d42a9fcf629f543a58, type: 3}
     level: 0
-    speed: 4
-    rotSpeed: 50
+    speed: 7
+    rotSpeed: 15
     followPlayer: 0
   - image: {fileID: 21300000, guid: bbdeebb523a401f469e65381a880cd88, type: 3}
     level: 0
@@ -57,215 +57,215 @@ MonoBehaviour:
     followPlayer: 0
   - image: {fileID: -3020929191664774951, guid: f13e8db05ea0855479049af5a04e7754, type: 3}
     level: 0
-    speed: 4
-    rotSpeed: 50
+    speed: 8
+    rotSpeed: 33
     followPlayer: 0
   - image: {fileID: 21300000, guid: 1fa1fffee367fb94c938b7257beaffb6, type: 3}
     level: 0
-    speed: 4
-    rotSpeed: 50
+    speed: 5
+    rotSpeed: 25
     followPlayer: 0
   - image: {fileID: -4868476205444432284, guid: 983fed67bd6134e48bc15e60e3a48b35, type: 3}
     level: 0
-    speed: 4
-    rotSpeed: 50
+    speed: 6
+    rotSpeed: 7
     followPlayer: 0
   - image: {fileID: 8732635013323328055, guid: ee814cd125f5e164c98f18aeadca0b8b, type: 3}
     level: 1
     speed: 5
-    rotSpeed: 10
+    rotSpeed: 4
     followPlayer: 0
   - image: {fileID: -4876614519491423539, guid: b677bde0bcfa0f642a52d56974735229, type: 3}
     level: 1
-    speed: 5
+    speed: 3
     rotSpeed: 10
     followPlayer: 0
   - image: {fileID: 8035554560761701672, guid: 5185903be8303204ab7cfb16a07472f5, type: 3}
     level: 1
     speed: 5
-    rotSpeed: 10
+    rotSpeed: 30
     followPlayer: 0
   - image: {fileID: 3989671660239976232, guid: a6182646e291c6f49acc4fd69d3824a1, type: 3}
     level: 1
-    speed: 5
-    rotSpeed: 10
+    speed: 4
+    rotSpeed: 20
     followPlayer: 0
   - image: {fileID: -5358628874173267313, guid: 812df2bada3b25240a873ec0780dd1f4, type: 3}
     level: 1
-    speed: 5
-    rotSpeed: 10
+    speed: 6
+    rotSpeed: 50
     followPlayer: 0
   - image: {fileID: 57973766318556600, guid: 67f0f6538540f4e42a739c64b2fc15ad, type: 3}
     level: 1
-    speed: 5
-    rotSpeed: 10
+    speed: 6
+    rotSpeed: 70
     followPlayer: 0
   - image: {fileID: 5707951045689174292, guid: 3a6e7165a226fa84da2b3d26d209f072, type: 3}
     level: 1
-    speed: 5
-    rotSpeed: 10
+    speed: 10
+    rotSpeed: 20
     followPlayer: 0
   - image: {fileID: -4566190091907096745, guid: 92ba3957d79ce544c9a662fbda9bcf99, type: 3}
     level: 2
-    speed: 5
-    rotSpeed: 10
+    speed: 6
+    rotSpeed: 50
     followPlayer: 0
   - image: {fileID: 21300000, guid: b49fd4b40659ada4ba0044fae6f9a977, type: 3}
     level: 2
-    speed: 5
-    rotSpeed: 10
+    speed: 10
+    rotSpeed: 30
     followPlayer: 0
   - image: {fileID: 3843231544584785974, guid: ffd922b1284ebf744aabf86ab79f1d98, type: 3}
     level: 2
-    speed: 5
-    rotSpeed: 10
+    speed: 20
+    rotSpeed: 50
     followPlayer: 0
   - image: {fileID: -3239100841381136530, guid: 49d990007fc873943b16abee5eaf76e5, type: 3}
     level: 2
-    speed: 5
-    rotSpeed: 10
+    speed: 14
+    rotSpeed: 20
     followPlayer: 0
   - image: {fileID: -3578749811347107042, guid: 71e4e75b0362781469d8eeaf55b6782b, type: 3}
     level: 2
-    speed: 5
-    rotSpeed: 10
+    speed: 20
+    rotSpeed: 40
     followPlayer: 0
   - image: {fileID: 21300000, guid: 4478694ccf77e1446b730c8c77f8a819, type: 3}
     level: 2
-    speed: 5
-    rotSpeed: 10
+    speed: 14
+    rotSpeed: 40
     followPlayer: 0
   - image: {fileID: 21300000, guid: d3660fd15e073204dafc4c6d546d152b, type: 3}
     level: 2
-    speed: 5
-    rotSpeed: 10
+    speed: 30
+    rotSpeed: 30
     followPlayer: 0
   - image: {fileID: 21300000, guid: 0f59c7f56d451ef40ac3e12ec01b635b, type: 3}
     level: 3
-    speed: 4
-    rotSpeed: 50
+    speed: 20
+    rotSpeed: 25
     followPlayer: 0
   - image: {fileID: 21300000, guid: f51e0e8f826666e42be8c83456746ccd, type: 3}
     level: 3
-    speed: 4
+    speed: 35
     rotSpeed: 50
     followPlayer: 0
   - image: {fileID: 21300000, guid: c2bfc33ff3c82bc479a1c5c29d787fb9, type: 3}
     level: 3
-    speed: 4
+    speed: 40
     rotSpeed: 50
     followPlayer: 0
   - image: {fileID: 21300000, guid: c0c8ccf2976fc0245af2ab16cbc9fa34, type: 3}
     level: 3
-    speed: 4
-    rotSpeed: 50
+    speed: 30
+    rotSpeed: 30
     followPlayer: 0
   - image: {fileID: 21300000, guid: 035dee1b5422ad94984b2f5ed433b05b, type: 3}
     level: 3
-    speed: 5
+    speed: 30
     rotSpeed: 50
     followPlayer: 0
   - image: {fileID: 7631416622193281335, guid: 66714ce867564db4f85e2e61655bb7b7, type: 3}
     level: 3
-    speed: 5
-    rotSpeed: 50
+    speed: 30
+    rotSpeed: 35
     followPlayer: 0
   - image: {fileID: -4737606851881724427, guid: caafa92180340734ba9e3644142107ff, type: 3}
     level: 3
-    speed: 5
-    rotSpeed: 5
+    speed: 25
+    rotSpeed: 20
     followPlayer: 0
   - image: {fileID: 7776255403194780300, guid: a40bb11548208d4469062cc8b26d4051, type: 3}
     level: 3
-    speed: 5
-    rotSpeed: 50
+    speed: 25
+    rotSpeed: 10
     followPlayer: 0
   - image: {fileID: 6010666401094480948, guid: b874f1a5b29126a4d96108b8792cc4f8, type: 3}
     level: 3
-    speed: 5
-    rotSpeed: 50
+    speed: 35
+    rotSpeed: 20
     followPlayer: 0
   - image: {fileID: 1948850027123622974, guid: 996f18e0d52cecf48b8166bc8c80e87d, type: 3}
     level: 3
-    speed: 5
-    rotSpeed: 5
-    followPlayer: 0
-  - image: {fileID: 21300000, guid: f51e0e8f826666e42be8c83456746ccd, type: 3}
-    level: 3
-    speed: 5
-    rotSpeed: 5
+    speed: 7
+    rotSpeed: 35
     followPlayer: 0
   - image: {fileID: 21300000, guid: 36f14b6ca6e2b3342b01d17568e98ce3, type: 3}
     level: 4
-    speed: 5
-    rotSpeed: 0.2
+    speed: 45
+    rotSpeed: 10
     followPlayer: 0
   - image: {fileID: 21300000, guid: 39ab33b628cee9c458b3f03a4e137cec, type: 3}
     level: 4
-    speed: 5
+    speed: 20
     rotSpeed: 10
     followPlayer: 0
   - image: {fileID: 21300000, guid: 0dd1663949e64934ea8cf29feef8330f, type: 3}
     level: 4
-    speed: 8
-    rotSpeed: 0.1
+    speed: 1
+    rotSpeed: 2
     followPlayer: 0
   - image: {fileID: 21300000, guid: 24518395c8803644f94643e3e52f71a4, type: 3}
     level: 4
     speed: 20
-    rotSpeed: 2
+    rotSpeed: 20
     followPlayer: 0
   - image: {fileID: 21300000, guid: 3eed68e6109c02d42bcd82ccabe0c5e6, type: 3}
     level: 4
     speed: 20
-    rotSpeed: 1
+    rotSpeed: 20
     followPlayer: 0
   - image: {fileID: 1295955565587498720, guid: 8752c3eb886c2cd4a9216997e0ce8a8a, type: 3}
     level: 4
-    speed: 20
-    rotSpeed: 1
+    speed: 35
+    rotSpeed: 15
     followPlayer: 0
   - image: {fileID: -5681613791555460825, guid: 4eac429f07ee1ac4692e518d1ba7a576, type: 3}
     level: 4
-    speed: 20
-    rotSpeed: 1
+    speed: 45
+    rotSpeed: 35
     followPlayer: 0
   - image: {fileID: 3424400597107730512, guid: ff125c11deaf5f94e9e196198728225c, type: 3}
     level: 4
-    speed: 20
-    rotSpeed: 1
+    speed: 10
+    rotSpeed: 7
     followPlayer: 0
   - image: {fileID: -2342443132637150662, guid: fb9ed62e4fec5764788e23a6192f2f62, type: 3}
     level: 4
-    speed: 20
-    rotSpeed: 1
+    speed: 50
+    rotSpeed: 25
     followPlayer: 0
   - image: {fileID: -473247437420683458, guid: a9aa632dce207b648b1b959627fa682c, type: 3}
     level: 4
-    speed: 20
-    rotSpeed: 1
+    speed: 35
+    rotSpeed: 20
     followPlayer: 0
   - image: {fileID: -5305298874396510737, guid: 7f7b2123b07651d4499b15e307be2f74, type: 3}
     level: 4
-    speed: 20
-    rotSpeed: 1
+    speed: 55
+    rotSpeed: 10
     followPlayer: 0
   - image: {fileID: 7592545925130625240, guid: 6b5045cf1a049b7459c7585c7e1d4dc5, type: 3}
     level: 4
     speed: 20
-    rotSpeed: 1
+    rotSpeed: 7
     followPlayer: 0
   - image: {fileID: -7137108738498115610, guid: af8842abd7fcbf34a96b8d40edd4fb31, type: 3}
     level: 4
-    speed: 20
+    speed: 40
+    rotSpeed: 20
+    followPlayer: 0
+  - image: {fileID: 21300000, guid: 654b125d08806ee45918b6084fe145f4, type: 3}
+    level: 4
+    speed: 1
     rotSpeed: 1
     followPlayer: 0
   probInfos:
   - probs:
     - 0
     - 0
-    - 80
-    - 20
+    - 75
+    - 25
     - 0
   - probs:
     - 0
@@ -282,17 +282,17 @@ MonoBehaviour:
   - probs:
     - 10
     - 20
-    - 40
+    - 39
     - 30
-    - 0
+    - 1
   - probs:
-    - 10
-    - 30
-    - 70
-    - 0
+    - 5
+    - 20
+    - 60
+    - 5
     - 0
   maxLevel: 4
-  maxCount: 60
+  maxCount: 80
   minObjCount: 20
   maxObjCount: 40
   spawnIntervalStart: 0.4
@@ -301,3 +301,5 @@ MonoBehaviour:
   player: {fileID: 0}
   camera: {fileID: 0}
   maxDistance: 2
+  blueMat: {fileID: 2100000, guid: 4bcbdc99bdde1b34989cf8fdfe432ead, type: 2}
+  redMat: {fileID: 2100000, guid: 774cc8dc374e7bf47be82a530225d8ce, type: 2}
