@@ -19,7 +19,7 @@ namespace GGJ
 
         void Update()
         {
-            if (player.IsDead) return;
+            //if (player.IsDead) return;
 
             AdjustXaxis();
             AdjustYaxis();
