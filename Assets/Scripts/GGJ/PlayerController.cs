@@ -75,8 +75,9 @@ namespace GGJ {
         private void GameStart() {
             this.size = 1f;
             IsDead = false;
+            rigid.linearVelocity = Vector2.zero;
+            targetVelocity = Vector2.zero;
             anim.SetBool("Dead", false);
-            this.transform.localScale = Vector3.one;
         }
 
         private void Eat() {
@@ -93,6 +94,13 @@ namespace GGJ {
             audioSource.PlayOneShot(popClip);
         }
 
+        public void Dead() {
+            IsDead = true;
+            anim.SetBool("Dead", true);
+            anim.SetTrigger("Pop");
+            PlayPopEffect();
+        }
+
         private void OnTriggerEnter2D(Collider2D collision) {
             if(IsDead) return;
 
@@ -100,10 +108,7 @@ namespace GGJ {
                 var obstacle = collision.GetComponent<ObstacleController>();
 
                 if(GameController.Instance.Level < obstacle.Level) {
-                    IsDead = true;
-                    anim.SetBool("Dead", true);
-                    anim.SetTrigger("Pop");
-                    PlayPopEffect();
+                    Dead();
                     GameController.Instance.GameOver();
                 } else {
                     Eat();

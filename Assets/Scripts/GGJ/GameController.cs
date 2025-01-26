@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using Sirenix.OdinInspector;
 using System;
@@ -104,6 +105,9 @@ namespace GGJ {
         [SerializeField]
         [TabGroup("g", "Objects")]
         private Material redMat;
+        [SerializeField]
+        [TabGroup("g", "Objects")]
+        private GameObject hand;
         #endregion
 
         public bool IsPlaying { get; private set; }
@@ -191,9 +195,14 @@ namespace GGJ {
             this.OnGameStart?.Invoke();
             obstacles.Clear();
 
-            camera.orthographicSize = 10f;
-            camera.transform.localScale = Vector3.one;
-            player.transform.localScale = Vector3.one;
+            camera.transform.DOKill();
+            camera.DOKill();
+            player.transform.DOKill();
+            
+            camera.DOOrthoSize(10f, 1f);
+            camera.transform.DOScale(1f, 1f);
+            player.transform.localScale = Vector3.zero;
+            player.transform.DOScale(1f, 1f);
 
             IsPlaying = true;
         }
@@ -207,8 +216,18 @@ namespace GGJ {
             Time.timeScale = 0.02f;
         }
 
-        public void GameClear() {
-
+        public async void GameClear() {
+            this.OnGameEnd?.Invoke();
+            IsPlaying = false;
+            foreach(var obstacle in obstacles) {
+                obstacle.gameObject.SetActive(false);
+            }
+            Time.timeScale = 0.02f;
+            hand.SetActive(true);
+            await UniTask.Delay(1000, true);
+            player.Dead();
+            await UniTask.Delay(1000, true);
+            hand.SetActive(false);
         }
 
         public void Eat() {
@@ -227,19 +246,19 @@ namespace GGJ {
             float clampedSize = Mathf.Lerp(Mathf.Pow(2, clampedLevel), Mathf.Pow(2, clampedLevel + 1), (Count % 10) / 10f);
 
             camera.DOKill();
-            camera.DOOrthoSize(clampedSize * 10f, .5f);
+            camera.DOOrthoSize(clampedSize * Mathf.Lerp(10f, 3f, (float)Level / maxLevel), .5f);
 
             camera.transform.DOKill();
-            camera.transform.DOScale(clampedSize, .5f);
+            camera.transform.DOScale(clampedSize * Mathf.Lerp(1f, .3f, (float)Level / maxLevel), .5f);
 
             player.transform.DOKill();
             player.transform.DOScale(size, .5f);
 
+            Level = clampedLevel;
+
             foreach(var obstacle in obstacles) {
                 obstacle.SetMat(obstacle.Level <= this.Level ? blueMat : redMat);
             }
-
-            Level = clampedLevel;
         }
 
         [Button]
